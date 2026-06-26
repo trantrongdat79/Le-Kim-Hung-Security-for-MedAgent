@@ -1,0 +1,3 @@
+[submodule "MedAgentBench"]
+	path = MedAgentBench
+	url = https://github.com/stanfordmlgroup/MedAgentBench.git
