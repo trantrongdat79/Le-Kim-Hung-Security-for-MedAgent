@@ -1,0 +1,42 @@
+assignments:
+- agent: deepseek-v4-flash
+  task: medagentbench-std
+concurrency:
+  agent:
+    deepseek-v4-flash: 1
+  task:
+    medagentbench-std: 1
+definition:
+  agent:
+    deepseek-v4-flash:
+      module: src.client.agents.HTTPAgent
+      parameters:
+        body:
+          max_tokens: 2048
+          model: deepseek-v4-flash
+          temperature: 0
+        controller_address: http://localhost:55555
+        headers:
+          Authorization: Bearer sk-***
+          Content-Type: application/json
+        max_new_tokens: 512
+        name: deepseek-v4-flash
+        prompter:
+          args:
+            agent_role: assistant
+          name: role_content_dict
+        return_format: '{response[choices][0][message][content]}'
+        temperature: 0
+        url: https://api.deepseek.com/chat/completions
+  task:
+    medagentbench-std:
+      module: src.client.TaskClient
+      parameters:
+        concurrency: 1
+        controller_address: http://localhost:5000/api
+        data_file: data/medagentbench/test_data_v2.json
+        fhir_api_base: http://localhost:8080/fhir/
+        func_file: data/medagentbench/funcs_v1.json
+        max_round: 8
+        name: medagentbench-std
+output: outputs/MedAgentBenchv1

@@ -14,3 +14,11 @@ Atleast 3 Agent:
 Must support memory and retreival
 
 Evaluate on benchmark data
+
+# Guide
+
+Run simple test chat:
+```bash
+cd MedAgentBench
+uv run python -m src.client.agent_test --config configs/agents/api_agents.local.yaml --agent deepseek-v4-flash
+```
